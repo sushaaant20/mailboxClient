@@ -16,8 +16,14 @@ const App = () => {
   const userEmail = useSelector((state) => state.auth.MailBoxId);
 
   useEffect(() => {
-    dispatch(ActionForSentMail(userEmail));
+    let id = setInterval(() => {
+      console.log("CALLING INTERVAL");
+      dispatch(ActionCreater(userEmail));
+    }, 2000);
+    return () => clearInterval(id);
   }, []);
+
+  dispatch(ActionForSentMail(userEmail));
 
   return (
     <Fragment>
