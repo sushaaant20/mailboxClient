@@ -9,14 +9,18 @@ const Inbox = (prop) => {
   const [error, sendRequest] = useHttp();
   const userMail = useSelector((state) => state.auth.MailBoxId);
   const dispatch = useDispatch();
-  console.log(prop, "==>inside inbox");
+
   const removeSeenHandler = () => {
     const dataObj = {
       seen: true,
     };
+
     const responseHandler = (res) => {
-      dispatch(manageEmailActions.seenMessage(prop.mails.id));
-      console.log(res);
+      if (prop.type === "receive") {
+        dispatch(manageEmailActions.seenMessage(prop.mails.id));
+      } else {
+        dispatch(manageEmailActions.seenSentMessageHandler(prop.mails.id));
+      }
     };
 
     sendRequest(
@@ -26,7 +30,7 @@ const Inbox = (prop) => {
         data: dataObj,
         header: { "Content-type": "application/json" },
       },
-      responseHandler()
+      responseHandler
     );
   };
 

@@ -38,7 +38,6 @@ const ComposeMail = () => {
     } else {
       const resData = () => {
         const responseHandler = (res) => {
-          console.log(res.data.name, "==> Resource");
           let emailWithId = { ...dataObj, id: res.data.name };
           dispatch(manageEmailActions.setSendMail(emailWithId));
         };
