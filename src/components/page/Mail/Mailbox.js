@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 const Mailbox = () => {
   const history = useHistory();
   const receiveMail = useSelector((state) => state.mailmanager.receive);
+  console.log(receiveMail);
   const { id } = useParams();
   let unSeen = 0;
   receiveMail.forEach((data) => {
@@ -52,7 +53,7 @@ const Mailbox = () => {
         <Route path="/mailbox/inbox">
           <section className={classes.inbox_main}>
             {receiveMail.map((mail) => {
-              return <Inbox key={mail.id} mails={mail} />;
+              return <Inbox key={mail.id} mails={mail} type={"receive"} />;
             })}
           </section>
         </Route>

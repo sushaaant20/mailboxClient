@@ -3,23 +3,27 @@ import classes from "./MessageInbox.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useHttp from "../../Hook/useHttp";
+import { Card } from "react-bootstrap";
 import { manageEmailActions } from "../../store/manage-email-reducer";
 
-const MessageInbox = () => {
+const MessageInbox = (props) => {
   const mails = useSelector((state) => state.mailmanager.receive);
   const userMail = useSelector((state) => state.auth.MailBoxId);
+  console.log(mails);
   const { id } = useParams();
+
   const [error, sendRequest] = useHttp();
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log(mails, "==>MESSAGE");
+
   let arr = mails.find((index) => index.id === id);
 
+  // Delete  Email Function
   const deleteMailHandler = () => {
     const responseHandler = () => {
       dispatch(manageEmailActions.deleteMail(arr.id));
       alert("Message deleted Successfully");
-      history.replace("/mailbox/receiveinbox");
+      history.replace("/mailbox/inbox");
     };
 
     sendRequest(
@@ -33,15 +37,15 @@ const MessageInbox = () => {
   };
   return (
     <Fragment>
-      {error && <h2>{error}</h2>}
-      <h1 className={classes.heading}>INBOX</h1>
-      <main className={classes.main}>
-        <h5>{arr ? arr.subject : "loading.."}</h5>
-        <p>{arr ? arr.message : "loading.."}</p>
-      </main>
-      <button className={classes.delete_button} onClick={deleteMailHandler}>
-        Delete Mail
-      </button>
+      <Card style={{ marginTop: "20%" }}>
+        {error && <h2>{error}</h2>}
+        <h1>INBOX</h1>
+        <main>
+          <h5>{arr ? arr.subject : "loading.."}</h5>
+          <p>{arr ? arr.message : "loading.."}</p>
+        </main>
+        <button onClick={deleteMailHandler}>Delete Mail</button>
+      </Card>
     </Fragment>
   );
 };

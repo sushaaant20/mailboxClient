@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import classes from "./Auth.module.css";
 import useHttp from "../Hook/useHttp";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";

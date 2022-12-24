@@ -11,20 +11,25 @@ const ComposeMail = () => {
   const [message, setMessage] = useState();
   const enteredMailAddRef = useRef();
   const enteredSubjectRef = useRef();
+
   const [error, sendRequest] = useHttp();
   const userMail = useSelector((state) => state.auth.MailBoxId);
+
   const refHandler = (event) => {
-    console.log(event.blocks[0].text);
     setMessage(event.blocks[0].text);
   };
+
   const dispatch = useDispatch();
 
   const sendMailHandler = () => {
     const enteredMail = enteredMailAddRef.current.value;
     const enteredSub = enteredSubjectRef.current.value;
-    console.log(enteredMail, enteredSub, message, "==>In Compose mail");
+
+    console.log(enteredMail, enteredSub, message);
+
     const mail1 = enteredMail.replace("@", "");
     const mail2 = mail1.replace(".", "");
+
     const dataObj = {
       subject: enteredSub,
       message: message,
@@ -40,7 +45,9 @@ const ComposeMail = () => {
         const responseHandler = (res) => {
           let emailWithId = { ...dataObj, id: res.data.name };
           dispatch(manageEmailActions.setSendMail(emailWithId));
+          alert("Email Sent Successfully");
         };
+
         sendRequest(
           {
             request: "post",

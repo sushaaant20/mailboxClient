@@ -6,7 +6,7 @@ export const ActionCreater = (userEmail) => {
     const fetchData = async () => {
       try {
         let res = await axios.get(
-          `https://mail-box-client-2811f-default-rtdb.firebaseio.com/receive${userEmail}.json`
+          `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/receive${userEmail}.json`
         );
         console.log(res, "==>ACTIONS");
         dispatch(manageEmailActions.setReceiveMail(res.data));
@@ -14,6 +14,23 @@ export const ActionCreater = (userEmail) => {
         console.log(err);
       }
     };
+    fetchData();
+  };
+};
+
+export const ActionForSentMail = (userEmail) => {
+  return async (dispatch) => {
+    const fetchData = async () => {
+      try {
+        let res = await axios.get(
+          `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/sent${userEmail}.json`
+        );
+        dispatch(manageEmailActions.setSentServerMail(res.data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetchData();
   };
 };
