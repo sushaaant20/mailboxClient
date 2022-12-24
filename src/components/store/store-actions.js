@@ -1,7 +1,6 @@
 import { manageEmailActions } from "../store/manage-email-reducer";
 import axios from "axios";
 export const ActionCreater = (userEmail) => {
-  console.log("ACTION");
   return async (dispatch) => {
     const fetchData = async () => {
       try {

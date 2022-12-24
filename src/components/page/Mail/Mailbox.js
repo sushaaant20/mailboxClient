@@ -11,11 +11,11 @@ import { useParams } from "react-router-dom";
 const Mailbox = () => {
   const history = useHistory();
   const receiveMail = useSelector((state) => state.mailmanager.receive);
-  console.log(receiveMail);
+  const sentMail = useSelector((state) => state.mailmanager.sent);
   const { id } = useParams();
   let unSeen = 0;
   receiveMail.forEach((data) => {
-    if (data.seen == false) {
+    if (data.seen === false) {
       unSeen = unSeen + 1;
     }
   });
@@ -38,7 +38,7 @@ const Mailbox = () => {
             style={{ marginBottom: "30px" }}
             variant="danger"
             onClick={() => {
-              history.push("/mailbox/inbox");
+              history.push("/mailbox/receiveinbox");
             }}
           >
             Inbox
@@ -46,11 +46,18 @@ const Mailbox = () => {
               {unSeen}
             </Badge>
           </Button>
-          <Button variant="danger" style={{ marginBottom: "30px" }}>
+          {/* Sent EMAIL */}
+          <Button
+            variant="danger"
+            style={{ marginBottom: "30px" }}
+            onClick={() => {
+              history.push("/mailbox/inbox");
+            }}
+          >
             Sent
           </Button>
         </section>
-        <Route path="/mailbox/inbox">
+        <Route path="/mailbox/receiveinbox">
           <section className={classes.inbox_main}>
             {receiveMail.map((mail) => {
               return <Inbox key={mail.id} mails={mail} type={"receive"} />;
@@ -62,6 +69,13 @@ const Mailbox = () => {
         </Route>
         <Route path="/mailbox/welcome">
           <Welcome />
+        </Route>
+        <Route path="/mailbox/inbox">
+          <section className={classes.inbox_main}>
+            {sentMail.map((mail) => {
+              return <Inbox key={mail.id} mails={mail} type={"sent"} />;
+            })}
+          </section>
         </Route>
       </main>
     </Fragment>

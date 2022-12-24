@@ -27,7 +27,7 @@ const Inbox = (prop) => {
     sendRequest(
       {
         request: "patch",
-        url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/receive${userMail}/${prop.mails.id}.json`,
+        url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/${prop.type}${userMail}/${prop.mails.id}.json`,
         data: dataObj,
         header: { "Content-type": "application/json" },
       },
