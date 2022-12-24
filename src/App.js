@@ -1,19 +1,37 @@
 import { Fragment } from "react";
-import React from "react";
-import AuthForm from "./components/Auth/Auth";
-import Home from "./components/Pages/home";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import Header from "./Components/Layout/Header";
+import React, { useEffect } from "react";
+import Auth from "./Components/Auth/Auth";
+import Mailbox from "./Components/page/Mail/Mailbox";
+import { Route, Switch } from "react-router-dom";
+import MessageInbox from "./Components/page/MessageInbox/MessageInbox";
+import { useDispatch, useSelector } from "react-redux";
+import { ActionCreater } from "./Components/store/store-actions";
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const userEmail = useSelector((state) => state.auth.MailBoxId);
+  useEffect(() => {
+    dispatch(ActionCreater(userEmail));
+  }, []);
+
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<AuthForm />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
-    </div>
+    <Fragment>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Auth />
+        </Route>
+        <Route path="/mailbox/:id">
+          <Mailbox />
+        </Route>
+        <Route path="/message/:id">
+          <MessageInbox />
+        </Route>
+      </Switch>
+    </Fragment>
   );
-}
+};
 
 export default App;
