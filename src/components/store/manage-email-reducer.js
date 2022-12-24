@@ -6,10 +6,7 @@ const manageEmailSlice = createSlice({
   name: "email-manager",
   initialState: initalEmailState,
   reducers: {
-    setSendMail(state, action) {
-      // state.sent.push(action.payload);
-      // console.log(action.payload, "==>inside redux");
-    },
+    setSendMail(state, action) {},
     setReceiveMail(state, action) {
       let arr = [];
       let obj = action.payload;

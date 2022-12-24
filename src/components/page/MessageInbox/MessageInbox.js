@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
-import classes from "./MessageInbox.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useHttp from "../../Hook/useHttp";
-import { Card } from "react-bootstrap";
+import { Card, Container, Button } from "react-bootstrap";
 import { manageEmailActions } from "../../store/manage-email-reducer";
 
 const MessageInbox = (props) => {
@@ -37,14 +36,25 @@ const MessageInbox = (props) => {
   };
   return (
     <Fragment>
-      <Card style={{ marginTop: "20%" }}>
+      <Card
+        bg="secondary"
+        style={{
+          marginTop: "3%",
+          width: "399px",
+          marginLeft: "35%",
+          color: "white",
+          padding: "20px",
+        }}
+      >
         {error && <h2>{error}</h2>}
-        <h1>INBOX</h1>
-        <main>
-          <h5>{arr ? arr.subject : "loading.."}</h5>
+        <Container>
+          <span></span>
+          <p>Subject = {arr ? arr.subject : "loading.."}</p>
           <p>{arr ? arr.message : "loading.."}</p>
-        </main>
-        <button onClick={deleteMailHandler}>Delete Mail</button>
+        </Container>
+        <Button variant="danger" onClick={deleteMailHandler}>
+          Delete Mail
+        </Button>
       </Card>
     </Fragment>
   );
