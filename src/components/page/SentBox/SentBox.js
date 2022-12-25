@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
@@ -6,6 +6,7 @@ import { Card } from "react-bootstrap";
 const SentBox = () => {
   const mails = useSelector((state) => state.mailmanager.sent);
   const { id } = useParams();
+
   let arr = mails.find((index) => index.id === id);
 
   return (

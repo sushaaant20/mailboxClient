@@ -5,20 +5,24 @@ import { useHistory } from "react-router-dom";
 
 const Header = () => {
   const history = useHistory();
+  const loggedInUser = useSelector((state) => state.auth.MailBoxId);
+  console.log(loggedInUser);
 
   const bannerFunction = () => {
     history.replace("/mailbox/welcome");
   };
+
   const logoutFunction = () => {
     localStorage.clear();
     history.replace("/");
+    window.location.reload();
   };
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark" style={{ marginBottom: "10px" }}>
         <Container>
           <Navbar.Brand onClick={bannerFunction} style={{ cursor: "pointer" }}>
-            MAIL BOX CLIENT
+            Signed In As : {loggedInUser}
           </Navbar.Brand>
         </Container>
         <Container>

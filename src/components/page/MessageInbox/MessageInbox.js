@@ -22,13 +22,13 @@ const MessageInbox = (props) => {
     const responseHandler = () => {
       dispatch(manageEmailActions.deleteMail(arr.id));
       alert("Message deleted Successfully");
-      history.replace("/mailbox/inbox");
+      history.replace("/mailbox/receiveinbox");
     };
 
     sendRequest(
       {
         request: "delete",
-        url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/receive${userMail}/${arr.id}.json`,
+        url: `https://mailclient-25d59-default-rtdb.firebaseio.com//receive${userMail}/${arr.id}.json`,
         header: { "Content-type": "application/json" },
       },
       responseHandler

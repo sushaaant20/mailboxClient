@@ -18,17 +18,20 @@ const manageEmailSlice = createSlice({
           seen: obj[id].seen,
         });
       }
-      console.log(arr, "==>INSIDE  MANAGER");
+      console.log(arr);
       state.receive = arr;
     },
+
     seenMessage(state, action) {
       let message = state.receive.find((data) => data.id === action.payload);
       message.seen = true;
     },
+
     deleteMail(state, action) {
       let arr = state.receive.filter((arr) => arr.id !== action.payload);
       state.receive = arr;
     },
+
     setSentServerMail(state, action) {
       let arr = [];
       let obj = action.payload;
@@ -42,6 +45,7 @@ const manageEmailSlice = createSlice({
       }
       state.sent = arr;
     },
+
     seenSentMessageHandler(state, action) {
       let message = state.sent.find((data) => data.id === action.payload);
       message.seen = true;

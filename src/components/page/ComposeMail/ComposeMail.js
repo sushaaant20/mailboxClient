@@ -13,6 +13,7 @@ const ComposeMail = () => {
   const enteredSubjectRef = useRef();
 
   const [error, sendRequest] = useHttp();
+
   const userMail = useSelector((state) => state.auth.MailBoxId);
 
   const refHandler = (event) => {
@@ -25,7 +26,7 @@ const ComposeMail = () => {
     const enteredMail = enteredMailAddRef.current.value;
     const enteredSub = enteredSubjectRef.current.value;
 
-    console.log(enteredMail, enteredSub, message);
+    console.log(enteredMail, enteredSub);
 
     const mail1 = enteredMail.replace("@", "");
     const mail2 = mail1.replace(".", "");
@@ -33,7 +34,7 @@ const ComposeMail = () => {
     const dataObj = {
       subject: enteredSub,
       message: message,
-      seen: false,
+      seen: true,
     };
 
     if (enteredMail.trim().length === 0) {
@@ -51,7 +52,7 @@ const ComposeMail = () => {
         sendRequest(
           {
             request: "post",
-            url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/sent${userMail}.json`,
+            url: `https://mailclient-25d59-default-rtdb.firebaseio.com/sent${userMail}.json`,
             data: dataObj,
             header: { "Content-type": "application/json" },
           },
@@ -62,7 +63,7 @@ const ComposeMail = () => {
       sendRequest(
         {
           request: "post",
-          url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/receive${mail2}.json`,
+          url: `https://mailclient-25d59-default-rtdb.firebaseio.com/receive${mail2}.json`,
           data: dataObj,
           header: { "Content-type": "application/json" },
         },
@@ -81,7 +82,7 @@ const ComposeMail = () => {
       }}
       bg="dark"
     >
-      <h2>{error}</h2>
+      <h6>{error}</h6>
       <h6>COMPOSE EMAIL</h6>
       <main className={classes.main}>
         <Container>
@@ -113,11 +114,7 @@ const ComposeMail = () => {
             onChange={refHandler}
           />
         </form>
-        <Button
-          variant="light"
-          className={classes.send_button}
-          onClick={sendMailHandler}
-        >
+        <Button variant="light" onClick={sendMailHandler}>
           Send
         </Button>
       </main>

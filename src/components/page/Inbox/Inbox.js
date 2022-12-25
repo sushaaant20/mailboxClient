@@ -27,16 +27,19 @@ const Inbox = (prop) => {
     sendRequest(
       {
         request: "patch",
-        url: `https://expense-tracker-909bf-default-rtdb.asia-southeast1.firebasedatabase.app/${prop.type}${userMail}/${prop.mails.id}.json`,
+        url: `https://mailclient-25d59-default-rtdb.firebaseio.com/${prop.type}${userMail}/${prop.mails.id}.json`,
         data: dataObj,
         header: { "Content-type": "application/json" },
       },
       responseHandler
     );
   };
+  const bgColor = prop.mails.seen == false ? "red" : "skyblue";
+  console.log(bgColor);
 
   return (
     <Fragment>
+      <h6></h6>
       <Container
         style={{ display: "flex", justifyContent: "", padding: "10px" }}
       >
@@ -53,15 +56,17 @@ const Inbox = (prop) => {
           <NavLink
             onClick={removeSeenHandler}
             style={{
+              fontWeight: "bold",
               color: "white",
-              backgroundColor: prop.mails.seen === false ? "red" : "lightgreen",
+              backgroundColor: `${bgColor}`,
+              height: "60px",
+              padding: "10px",
             }}
             to={`/${prop.type}message/${prop.mails.id}`}
           >
             {prop.mails.message}
           </NavLink>
         </Card>
-        <Button>X</Button>
       </Container>
     </Fragment>
   );

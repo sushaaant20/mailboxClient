@@ -4,6 +4,7 @@ import axios from "axios";
 const useHttp = () => {
   // CUSTOM HOOK FOR MAKING API CALLS
   const [error, setError] = useState(null);
+
   const sendRequest = useCallback(async (requestConfig, resData) => {
     setError(null);
     try {
